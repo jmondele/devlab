@@ -2,8 +2,10 @@ import { ArrowRight, Sparkles } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Marquee } from "@/components/site/Marquee";
-import HeroScene from "@/components/three/HeroScene";
+import { lazy, Suspense } from "react";
 import Spline from '@splinetool/react-spline';
+
+const HeroScene = lazy(() => import("@/components/three/HeroScene"));
 
 export default function Index() {
   return (
@@ -43,9 +45,9 @@ export default function Index() {
                    
  <Spline scene="https://prod.spline.design/TVnZEDGT6rRES9Ca/scene.splinecode" />
                 {/** 3D animated scene */}
-                {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
-                {/* @ts-ignore */}
-                <HeroScene />
+                <Suspense fallback={<div className="animate-pulse bg-muted/20 w-full h-full rounded-xl" />}>
+                  <HeroScene />
+                </Suspense>
               </div>
             </div>
             <ul className="mt-4 space-y-2 text-sm text-foreground/70">
